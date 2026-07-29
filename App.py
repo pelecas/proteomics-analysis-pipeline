@@ -1603,7 +1603,7 @@ if uploaded_file is not None:
     
                     gene_sets=GO_DATABASE,
     
-                    ="human",
+                    organism="human",
     
                     outdir=None,
     
