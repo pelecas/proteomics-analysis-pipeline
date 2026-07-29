@@ -1506,7 +1506,7 @@ if uploaded_file is not None:
     
             fields="symbol",
     
-            species="homo sapiens",
+            species=9606,
     
             verbose=False,
     
@@ -1603,7 +1603,7 @@ if uploaded_file is not None:
     
                     gene_sets=GO_DATABASE,
     
-                    organism="homo sapiens",
+                    organism=9606,
     
                     outdir=None,
     
@@ -1696,7 +1696,7 @@ if uploaded_file is not None:
     
                     gene_sets=GO_DATABASE,
     
-                    organism="homo sapiens",
+                    organism=9606,
     
                     outdir=None,
     
