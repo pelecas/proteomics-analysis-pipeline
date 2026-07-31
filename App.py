@@ -205,6 +205,15 @@ show_volcano_labels = st.sidebar.checkbox(
     value=True
 )
 
+volcano_label_count = st.sidebar.slider(
+    "Number of labels per volcano plot",
+    min_value=1,
+    max_value=18,
+    value=4,
+    step=1
+)
+
+
 show_pca_grid = st.sidebar.checkbox(
 
     "Show PCA Grid",
@@ -550,32 +559,81 @@ def volcano_plot(
         )
 
     # =====================================================
-    # LABELS
+    # PROTEIN LABELS
     # =====================================================
+    
+    if show_volcano_labels:
+    
+        # Keep only statistically significant proteins
+        significant_proteins = data[
+            (abs(data[fc_col]) >= fc_threshold) &
+            (data[pval_col] >= 1.3)
+        ].copy()
+    
+        # Select the most significant proteins
+        proteins_to_label = significant_proteins.nlargest(
+            volcano_label_count,
+            pval_col
+        )
+    
+        for idx, row in proteins_to_label.iterrows():
+    
+            # Place labels toward the center of the plot.
+            # This prevents labels at the edges from being cut off.
+            if row[fc_col] >= 0:
+    
+                horizontal_offset = -10
+                horizontal_alignment = "right"
+    
+            else:
+    
+                horizontal_offset = 10
+                horizontal_alignment = "left"
+    
+            ax.annotate(
+                str(idx),
+    
+                # Position of the protein dot
+                xy=(
+                    row[fc_col],
+                    row[pval_col]
+                ),
+    
+                # Position of the label relative to the dot
+                xytext=(
+                    horizontal_offset,
+                    8
+                ),
+    
+                textcoords="offset points",
+    
+                fontsize=10,
+                weight="bold",
+                ha=horizontal_alignment,
+                va="bottom",
+    
+                # Short line connecting the point and label
+                arrowprops=dict(
+                    arrowstyle="-",
+                    color="black",
+                    linewidth=0.7,
+                    shrinkA=1,
+                    shrinkB=3
+                ),
+    
+                annotation_clip=True
+            )
 
+    # Add extra vertical space only when labels are visible
     if show_volcano_labels:
 
-        for idx, row in data.iterrows():
+        current_ymin, current_ymax = ax.get_ylim()
 
-            if (
-                abs(row[fc_col]) >= fc_threshold
-                and
-                row[pval_col] >= 3
-            ):
-
-                ax.text(
-
-                    row[fc_col],
-
-                    row[pval_col],
-
-                    str(idx),
-
-                    fontsize=11,
-                    
-                    weight="bold"
-                )
-
+        ax.set_ylim(
+            current_ymin,
+            current_ymax * 1.10
+        )
+    
     # =====================================================
     # THRESHOLDS
     # =====================================================
