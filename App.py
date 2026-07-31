@@ -571,7 +571,9 @@ def volcano_plot(
 
                     str(idx),
 
-                    fontsize=7
+                    fontsize=10,
+                    
+                    weight="bold"
                 )
 
     # =====================================================
@@ -605,7 +607,29 @@ def volcano_plot(
         color="black"
     )
 
-    ax.set_title(fc_col)
+    ax.set_title(
+    fc_col,
+    fontsize=16,
+    weight="bold"
+    )
+    
+    ax.set_xlabel(
+        "log2 Fold Change",
+        fontsize=14,
+        weight="bold"
+    )
+    
+    ax.set_ylabel(
+        "-log10 adjusted p-value",
+        fontsize=14,
+        weight="bold"
+    )
+    
+    # Increase x-axis and y-axis number sizes
+    ax.tick_params(
+        axis="both",
+        labelsize=12
+    )
 
     ax.grid(alpha=0.2)
 
@@ -1980,7 +2004,7 @@ if uploaded_file is not None:
     
             ncols=2,
     
-            figsize=(34, 18),
+            figsize=(24, 18),
     
             sharey=False
         )
@@ -2035,7 +2059,7 @@ if uploaded_file is not None:
     
                 title,
     
-                fontsize=20,
+                fontsize=24,
     
                 weight="bold"
             )
@@ -2044,7 +2068,7 @@ if uploaded_file is not None:
     
                 "Comparison",
     
-                fontsize=18,
+                fontsize=20,
     
                 weight="bold"
             )
@@ -2055,14 +2079,14 @@ if uploaded_file is not None:
     
                 rotation=45,
     
-                labelsize=10
+                labelsize=14
             )
     
             ax.tick_params(
     
                 axis="y",
     
-                labelsize=10
+                labelsize=13
             )
     
             ax.grid(
@@ -2087,7 +2111,7 @@ if uploaded_file is not None:
     
                 "-log10(FDR)",
     
-                fontsize=12,
+                fontsize=15,
     
                 weight="bold"
             )
@@ -2100,7 +2124,7 @@ if uploaded_file is not None:
     
             "GO Biological Process",
     
-            fontsize=14,
+            fontsize=18,
     
             weight="bold"
         )
@@ -2109,7 +2133,7 @@ if uploaded_file is not None:
     
             "GO Biological Process",
     
-            fontsize=14,
+            fontsize=18,
     
             weight="bold"
         )
@@ -2165,9 +2189,9 @@ if uploaded_file is not None:
     
             title="Protein Counts",
     
-            title_fontsize=12,
+            title_fontsize=15,
     
-            fontsize=12,
+            fontsize=14,
     
             bbox_to_anchor=(1.28, 1),
     
@@ -2182,7 +2206,7 @@ if uploaded_file is not None:
     
             "GO Enrichment Comparison Grid",
     
-            fontsize=22,
+            fontsize=26,
     
             weight="bold",
     
