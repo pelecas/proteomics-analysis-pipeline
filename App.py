@@ -1471,31 +1471,6 @@ if uploaded_file is not None:
             pval_col="minuslog10_significance"
         )
     
-        # =================================================
-        # LABELS
-        # =================================================
-    
-        if show_volcano_labels:
-    
-            for idx, row in results.iterrows():
-    
-                if (
-                    abs(row[fc_col]) >= fc_threshold
-                    and
-                    row["minuslog10_significance"] >= 3
-                ):
-    
-                    ax.text(
-    
-                        row[fc_col],
-    
-                        row["minuslog10_significance"],
-    
-                        str(idx),
-    
-                        fontsize=7
-                    )
-    
     # =====================================================
     # REMOVE EMPTY AXES
     # =====================================================
